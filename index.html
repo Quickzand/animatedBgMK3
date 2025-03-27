@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>AnimatedBG</title>
+
+		<style>
+			@keyframes gradientAnimation {
+				0% {
+					background-position: 0% 0%;
+				}
+
+				100% {
+					background-position: 100% 100%;
+				}
+			}
+			body {
+				padding: 0;
+				margin: 0;
+			}
+			#backgroundCanvas {
+				--padding: 0px; /* Padding to ensure the canvas covers the viewport */
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: calc(100vw + calc(var(--padding) * 5));
+				height: calc(100vh + calc(var(--padding) * 5));
+				z-index: -1; /* Ensure the canvas is behind other elements */
+				background: linear-gradient(
+					-45deg,
+					#0dcab1,
+					#26c742,
+					#da47db,
+					#fd4955,
+					#ffad01,
+					#0dcab1,
+					#26c742,
+					#da47db,
+					#fd4955,
+					#ffad01
+				);
+				filter: blur(var(--padding));
+			}
+
+			#backgroundCanvasFilter {
+				--background-texture: url(data:image/png;base64,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);
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background-image: var(--background-texture);
+				background-size: 25px 20px;
+				opacity: 0.5; /* Adjust opacity for texture visibility */
+				z-index: -1;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="backgroundCanvas"></canvas>
+		<div id="backgroundCanvasFilter"></div>
+	</body>
+
+	<script>
+		const backgroundCanvas = document.getElementById("backgroundCanvas");
+		const backgroundContext = backgroundCanvas.getContext("2d");
+		const hexagonRadius = 50; // Size of the hexagons
+		const baseOpacity = 0.98; // Base opacity for hexagons
+		let rowSize;
+		let hexagonCount = 0; // Total number of hexagons
+		let hexagons = []; // Array to hold hexagon objects
+
+		class Hexagon {
+			constructor(index) {
+				this.index = index;
+				this.opacity = baseOpacity;
+				this.lockOpacity = false;
+				this.currentAnimation = null;
+				this.reposition();
+			}
+
+			animate(options) {
+				options.delay = options.delay || 0;
+				options.duration = options.duration || 1000;
+				options.timingFunction = options.timingFunction || ((t) => t);
+				options.keyframes = options.keyframes || [0, 1];
+				options.startTime = Date.now() + options.delay;
+				if (this.currentAnimation != null) {
+					options.keyframes[0];
+				}
+				this.currentAnimation = options;
+			}
+
+			reposition() {
+				let rowNumber = Math.floor(this.index / rowSize);
+				this.x =
+					(this.index % rowSize) * (hexagonRadius * 3) + hexagonRadius / 2;
+				if (rowNumber % 2 === 1) {
+					this.x += hexagonRadius * 1.5; // Offset for odd rows
+				}
+				this.y = rowNumber * ((hexagonRadius * Math.sqrt(3)) / 2);
+			}
+
+			draw() {
+				var effectiveOpacity = baseOpacity;
+
+				if (this.currentAnimation != null) {
+					const now = Date.now();
+					const elapsed = now - this.currentAnimation.startTime;
+
+					if (elapsed >= 0 && elapsed < this.currentAnimation.duration) {
+						const t = elapsed / this.currentAnimation.duration;
+						const easedT = this.currentAnimation.timingFunction(t);
+
+						// Calculate keyframe intervals
+						const keyframes = this.currentAnimation.keyframes;
+						const frameInterval = 1 / (keyframes.length - 1);
+						let frameIndex = Math.floor(easedT / frameInterval);
+						if (frameIndex >= keyframes.length - 1)
+							frameIndex = keyframes.length - 2;
+
+						const frameStart = keyframes[frameIndex];
+						const frameEnd = keyframes[frameIndex + 1];
+						const frameProgress =
+							(easedT - frameInterval * frameIndex) / frameInterval;
+
+						this.opacity =
+							frameStart * (1 - frameProgress) + frameEnd * frameProgress;
+					} else if (elapsed >= this.currentAnimation.duration) {
+						this.opacity = baseOpacity;
+						this.currentAnimation = null;
+					}
+				}
+
+				backgroundContext.beginPath();
+				const angle = (2 * Math.PI) / 6;
+				for (let i = 0; i < 6; i++) {
+					let xx = this.x + (hexagonRadius + 1) * Math.cos(angle * i);
+					let yy = this.y + (hexagonRadius + 1) * Math.sin(angle * i);
+					backgroundContext.lineTo(xx, yy);
+				}
+				backgroundContext.closePath();
+				backgroundContext.fillStyle = "rgba(0, 0, 0, " + this.opacity + ")";
+
+				backgroundContext.fill();
+			}
+		}
+
+		function calculateSizing() {
+			backgroundCanvas.width = window.innerWidth;
+			backgroundCanvas.height = window.innerHeight;
+			// Calculate the number of rows and columns based on the canvas size
+			rowSize =
+				Math.floor(backgroundCanvas.width / (hexagonRadius * 3)) +
+				hexagonRadius;
+			hexagonCount = Math.ceil(
+				(backgroundCanvas.height / ((hexagonRadius * Math.sqrt(3)) / 2)) *
+					rowSize +
+					rowSize
+			);
+			// Adjust the hexagon array to match the calculated count
+			if (hexagons.length < hexagonCount) {
+				for (let i = hexagons.length; i < hexagonCount; i++) {
+					hexagons.push(new Hexagon(i));
+				}
+			} else if (hexagons.length > hexagonCount) {
+				hexagons = hexagons.slice(0, hexagonCount);
+			}
+			// Reposition hexagons for the new canvas size
+			hexagons.forEach((hexagon, index) => {
+				hexagon.index = index;
+				hexagon.reposition();
+			});
+
+			console.log(hexagonCount);
+		}
+
+		calculateSizing();
+
+		window.addEventListener("resize", calculateSizing);
+
+		function drawHexagons() {
+			backgroundContext.clearRect(
+				0,
+				0,
+				backgroundCanvas.width,
+				backgroundCanvas.height
+			);
+			hexagons.forEach((hexagon) => {
+				hexagon.draw();
+			});
+		}
+
+		function fadeAnimation(delay = 0) {
+			return {
+				duration: 5000,
+				timingFunction: (t) => t,
+				keyframes: [baseOpacity, 0.2, baseOpacity],
+				delay: delay,
+			};
+		}
+
+		function fadeAnimationAdjacent(delay = 0, distance = 1) {
+			let baseAnim = fadeAnimation(delay);
+			baseAnim.keyframes = [
+				baseOpacity,
+				baseOpacity * (1 - Math.pow(0.5, distance + 2)),
+				baseOpacity,
+			];
+			return baseAnim;
+		}
+
+		function drawFrame() {
+			drawHexagons();
+			requestAnimationFrame(drawFrame);
+		}
+
+		function newRaindrop() {
+			let col = Math.floor(Math.random() * rowSize);
+			let raindropIndex = 0;
+			let row = 0;
+			const totalRows = Math.ceil(hexagonCount / rowSize);
+
+			while (row < totalRows) {
+				let i = row * rowSize + col;
+				if (i >= hexagonCount) break;
+
+				if (true) {
+					// Animate the main (central) hexagon.
+					hexagons[i].animate(fadeAnimation(raindropIndex * 100));
+
+					// Calculate the true adjacent (touching) neighbors based on odd/even rows.
+					let neighbors = [];
+					if (row % 2 === 0) {
+						neighbors = [
+							{ r: row - 1, c: col - 1 },
+							{ r: row - 1, c: col },
+							{ r: row, c: col - 1 },
+							{ r: row, c: col + 1 },
+							{ r: row + 1, c: col - 1 },
+							{ r: row + 1, c: col },
+						];
+					} else {
+						neighbors = [
+							{ r: row - 1, c: col },
+							{ r: row - 1, c: col + 1 },
+							{ r: row, c: col - 1 },
+							{ r: row, c: col + 1 },
+							{ r: row + 1, c: col },
+							{ r: row + 1, c: col + 1 },
+						];
+					}
+
+					neighbors.forEach((n) => {
+						if (n.r >= 0 && n.r < totalRows && n.c >= 0 && n.c < rowSize) {
+							let neighborIndex = n.r * rowSize + n.c;
+							if (neighborIndex >= hexagonCount) return;
+							if (hexagons[neighborIndex].currentAnimation == null) {
+								hexagons[neighborIndex].animate(
+									fadeAnimationAdjacent(raindropIndex * 100 + 50, 1)
+								);
+							}
+						}
+					});
+					raindropIndex++;
+				}
+
+				// Weighted drift: 80% chance to continue in the same column, 10% left, 10% right.
+				let randomVal = Math.random();
+				let drift = randomVal < 0.1 ? -1 : randomVal < 0.9 ? 0 : 1;
+				col = Math.max(0, Math.min(rowSize - 1, col + drift));
+
+				if (drift == 0) {
+					row++;
+				}
+			}
+		}
+		// Every second, pick a random hexagon and animate it
+		// to fade out and back in
+		setInterval(() => {
+			newRaindrop();
+		}, 350);
+
+		newRaindrop();
+
+		drawFrame();
+	</script>
+</html>
